@@ -1,0 +1,24 @@
+{
+  "name": "turnerhacks",
+  "version": "1.0.0",
+  "description": "A Tl;Dr Bot",
+  "main": "app.js",
+  "dependencies": {
+    "slack-client": "^2.0.6",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaanavD/TLDR-Bot.git"
+  },
+  "author": "Maanav Dalal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaanavD/TLDR-Bot/issues"
+  },
+  "homepage": "https://github.com/MaanavD/TLDR-Bot#readme"
+}
