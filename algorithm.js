@@ -123,13 +123,11 @@ for (let i = 0; i < input.length; i++)
 
 var output = [];
 
-var notrepeat = [];
-for (let i = 0; i < input.length; i++)
-    notrepeat.push(true);
-var trange = 5000;
+var want = new Array(input.length).fill(false);
+
 var output2 = searchStringInArrayB(timestamps);
 var output3 = searchStringInArrayC(messages);
-var output4 = searchStringInArrayD(messages);
+reactions(input);
 var finaloutput = [];
 for (let i = 0; i < output1.length; i++)
 finaloutput.push (output1[i]);
@@ -153,6 +151,7 @@ for (let i = 0; i < keywords.length; i++)
 
 keywords.push("\\?");
 important.push(true);
+var trange = 5000;
 
 var output1 = searchStringInArrayA(messages, keywords);
 // searches for strings containing key words
@@ -191,23 +190,6 @@ function searchStringInArrayB(a) {
         }
         else if ((a[i] - a[i - 1]) <= trange) {
             if (notrepeat[i]) {
-                output.push(i);
-                notrepeat[i] = false;
-            }
-        }
-    }
-    return output;
-}
-
-function searchStringInArrayC (a)
-{
-    var output = [];
-    for(let i = 0; i< a.length; i++)
-    {
-        if(a[i].length > 128)
-        {
-            if (notrepeat[i])
-            {
                 output.push(i);
                 notrepeat[i] = false;
             }
