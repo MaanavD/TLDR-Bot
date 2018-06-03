@@ -18,21 +18,6 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 */
 module.exports = (user, channel, action = {}, botToken = null, callback) => {
 
-  callback(null, {
-    text: `Hello, <@${user}>!\nThis text will overwrite the original interactive message`,
-    attachments: [{
-      text: 'Try hitting this endpoint again by clicking the button!',
-      fallback: 'Can\'t display attachment',
-      callback_id: 'callback_id',
-      actions: [
-        {
-          name: 'example',
-          text: 'Refresh',
-          type: 'button',
-          value: 'value'
-        }
-      ]
-    }]
-  });
+  callback(null, {});
 
 };
