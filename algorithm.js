@@ -106,94 +106,66 @@ var input = [
     }
 ];
 
-/*
-1. Get input as messages[]
-2. Sort messages decreasing by length
-3. Add first however many messages
-4. Test remaining messages for string match
-5. Test remaining messages for reactions
-*/
-
-var messages = [];
-for (let i = 0; i < input.length; i++)
-    messages.push(input[i].text);
-var timestamps = [];
-for (let i = 0; i < input.length; i++)
-    timestamps.push(input[i].ts)
-
-var output = [];
-
 var want = new Array(input.length).fill(false);
 
-var output2 = searchStringInArrayB(timestamps);
-var output3 = searchStringInArrayC(messages);
-reactions(input);
-var finaloutput = [];
-for (let i = 0; i < output1.length; i++)
-finaloutput.push (output1[i]);
-for (let i = 0; i < output2.length; i++)
-finaloutput.push (output2[i]);
-for (let i = 0; i < output3.length; i++)
-finaloutput.push (output3[i]);
-for (let i = 0; i < output4.length; i++)
-finaloutput.push (output4[i]);
-var finaloutput2 = sort (finaloutput);
+var keywords = [{"text": "\\?", "after": 3}];
+byContent(input, keywords);
+
+var trange = 5000;
+byFrequency(input);
+
+minLength = 128;
+byLength(input);
+
+minReactions = 3;
+byReactions(input);
 
 // final output
-for (let i = 0; i < finaloutput.length; i ++) {
-    console.log(input[finaloutput2[i]].ts + "\t" + input[finaloutput2[i]].user + ":\t" + input[finaloutput2[i]].text);
+for (let i = 0; i < input.length; i ++) {
+    if (want[i]) {
+        console.log(input[i]);
+    }
 }
 
-var keywords = [];
-var important = [];
-for (let i = 0; i < keywords.length; i++)
-    important.push(false);
-
-keywords.push("\\?");
-important.push(true);
-var trange = 5000;
-
-var output1 = searchStringInArrayA(messages, keywords);
-// searches for strings containing key words
-function searchStringInArrayA(a, b) {
-    var output = [];
-    for (let t = 0; t < b.length; t++) {
-        for (let i = 0; i < a.length; i++) {
-            if (a[i].search(b[t]) != -1) {
-                if (notrepeat[i]) {
-                    output.push(i);
-                    notrepeat[i] = false;
-                }
-                if (important[t]) {
-                    for (let j = 1; (j <= n) && (i + j < a.length); j++) {
-                        if (notrepeat[i + j]) {
-                            output.push(i + j);
-                            notrepeat[i + j] = false;
-                        }
-                    }
+function byContent(a, b) {
+    for (let t = 0; t < b.length; t ++) {
+        for (let i = 0; i < a.length; i ++) {
+            if (a[i].text.search(b[t].text) != -1) {
+                for (let j = 0; j <= b[t].after; j ++) {
+                    want[i + j] = true;
                 }
             }
         }
     }
-    return output;
 }
 
-function searchStringInArrayB(a) {
-    var output = [];
-    for (let i = 0; i < (a.length - 1); i++) {
-        if ((a[i + 1] - a[i]) <= trange) {
-            if (notrepeat[i]) {
-
-                output.push(i);
-                notrepeat[i] = false;
-            }
+function byFrequency(a) {
+    for (let i = 1; i < a.length; i ++) {
+        if ((a[i].ts - a[i - 1].ts) <= trange) {
+            want[i] = true;
+            want[i - 1] = true;
         }
-        else if ((a[i] - a[i - 1]) <= trange) {
-            if (notrepeat[i]) {
-                output.push(i);
-                notrepeat[i] = false;
+    }
+}
+
+function byLength(a) {
+    for (let i = 0; i < a.length; i ++) {
+        if (a[i].length >= minLength) {
+            want[i] = true;
+        }
+    }
+}
+
+function byReactions(a) {
+    for (let i = 0; i < a.length; i ++) {
+        a[i].reactioncount = 0;
+        if (a[i].reactions != undefined) {
+            for (let j = 0; j < a[i].reactions.length; j ++) {
+                a[i].reactioncount += a[i].reactions[j].count;
+            }
+            if (a[i].reactioncount >= minReactions) {
+                want[i] = true;
             }
         }
     }
-    return output;
 }
