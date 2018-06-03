@@ -25,7 +25,7 @@ module.exports = (user, channel, text = '', command = {}, botToken = null, callb
 
     var out;
 
-    httpGet('https://slack.com/api/channels.history?token=xoxp-371545814469-374146134465-374779681874-8c3e46c40c33f834ccc6ffe9d546ae2a&channel=CAXBZULM8&pretty=1', function(response) {
+    httpGet('https://slack.com/api/channels.history?token=xoxp-371545814469-374465758244-375880975175-7cd41db99d5b4c303d6d681d32adc97a&channel=CAXBZULM8&pretty=1', function(response) {
         var unfiltered = JSON.parse(response).messages;
         var message = [];
         for (let i = 0; i < unfiltered.length; i ++) {
@@ -51,8 +51,8 @@ module.exports = (user, channel, text = '', command = {}, botToken = null, callb
         }
 
         callback(null, {
-            text: `Hey, <@${user}>, I see ${out} you need an update on the past ${text} Messages.\n`,
-            attachments: attach;
+            text: `Hey, <@${user}>, I see you need an update on the past ${text} Messages.\n`,
+            attachments: attach
         });
     });
 };
