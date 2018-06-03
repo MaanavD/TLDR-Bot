@@ -11,20 +11,20 @@ const https = require('https');
 * @returns {object}
 */
 
-function httpGet(theUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            callback(xmlHttp.responseText);
-        }
-    }
-    xmlHttp.open("GET", theUrl, true);
-    xmlHttp.send(null);
-}
-
-var out;
-
 module.exports = (user, channel, text = '', command = {}, botToken = null, callback) => {
+
+    var out;
+    var ihatenode = function httpGet(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                callback(xmlHttp.responseText);
+            }
+        }
+        xmlHttp.open("GET", theUrl, true);
+        xmlHttp.send(null);
+    };
+
     httpGet('https://slack.com/api/channels.history?token=xoxp-371545814469-374146134465-374779681874-8c3e46c40c33f834ccc6ffe9d546ae2a&channel=CAXBZULM8&pretty=1', function(message) {out = message);});
     callback(null, {
         text: `Hey, <@${user}>, I see you need an update on the past ${text} Messages.\n`,
