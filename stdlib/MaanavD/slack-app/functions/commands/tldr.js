@@ -1,4 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
+const https = require('https');
 /**
 * /hello
 
@@ -10,13 +11,14 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 * @returns {object}
 */
 
+
 module.exports = (user, channel, text = '', command = {}, botToken = null, callback) => {
   callback(null, {
     text: `Hey, <@${user}>, I see you need an update on the past ${text} Messages.\n`,
     attachments: [
       {
         "fallback": "Required plain-text summary of the attachment.",
-        "color": "#36a64f",
+        "color": "#ffe4e1",
         "pretext": "Here's what I was able to come up with:",
         // "author_name": "Bobby Tables",
         // "author_link": "http://flickr.com/bobby/",
