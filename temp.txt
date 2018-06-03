@@ -1,0 +1,13 @@
+// var testVar = function test(){
+//   //Potentially parse a timestamp into number of messages
+//   var messageArray;
+//   var i = text;
+//   while(i >0){
+//     messageArray[i][0] = messageGet.text;
+//     messageArray[i][1] = messageGet.emoji;
+//     messageArray[i][2] = messageGet.miscInfo;
+//   }
+// }
+
+//TODO Insert method to push message array into final array
+//TODO var finalMessage = Insert method to format message
